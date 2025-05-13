@@ -21,7 +21,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequiredUniqueChars = 0;
 
     // Optional: keep email confirmation required or disable it
-    options.SignIn.RequireConfirmedAccount = false; // or false
+    options.SignIn.RequireConfirmedAccount = false;  
 })
 .AddEntityFrameworkStores<ProductManagementMVC_2Context>();
 
