@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ProductManagementMVC_2.Data;
 using ProductManagementMVC_2.Interfaces;
 using ProductManagementMVC_2.Services;
+using SignalRChat.Hubs; 
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProductManagementMVC_2ContextConnection") ?? throw new InvalidOperationException("Connection string 'ProductManagementMVC_2ContextConnection' not found.");
@@ -28,6 +30,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 
@@ -50,5 +54,7 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
